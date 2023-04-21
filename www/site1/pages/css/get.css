@@ -1,0 +1,6 @@
+@import "general.css";
+
+/*------ID------------------------*/
+#main {
+	transform: translate(-50%, -65%);
+}

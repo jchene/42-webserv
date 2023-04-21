@@ -1,68 +1,75 @@
-################################################################################
-#									 CONFIG								   #
-################################################################################
+NAME				=	webserv
+SRCSDIR				=	srcs
+OBJSDIR				=	objs
+INCLUDESDIR			=	includes
+OBJS_SUBDIR			=	$(shell find $(SRCSDIR) -type d | grep '/' | sed 's/srcs/objs/g')
+CFLAGS				=	-Wall -Wextra -Werror -std=c++98 -g
+CC					=	c++
+RM					=	rm -rf
 
-S_NAME		:= server
-C_NAME		:= client
-CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror -Wpedantic -g
- 
-################################################################################
-#								 PROGRAM'S SRCS							   #
-################################################################################
+SRCS				=	$(shell find $(SRCSDIR) -type f -name "*.cpp")
+SRCS_COUNT			=	$(shell find $(SRCSDIR) -type f -name "*.cpp" | wc -l)
+OBJS				=	$(subst $(SRCSDIR),$(OBJSDIR),$(SRCS:.cpp=.o))
+HEADERS				=	$(shell find $(INCLUDESDIR) -type f -name "*.hpp")
+HEADERS_COUNT		=	$(shell find $(INCLUDESDIR) -type f -name "*.hpp" | wc -l)
 
-S_SRCS		:= server.c
-C_SRCS		:= client.c
+INDEX				=	0
+BUILD_SIZE			=	$(SRCS_COUNT)
 
-S_OBJS		:=  ${S_SRCS:.c=.o}
-C_OBJS		:=  ${C_SRCS:.c=.o}
+_STOP				=	\e[0m
+_GREEN				=	\e[92m
+CLEAR				=	'	                                                     \r'
+FULL				=	-->[$(_GREEN)===================================$(_STOP)]<--[ $(_GREEN)100%$(_STOP) ]
 
-S_HEADERS 	:=
-C_HEADERS 	:=
+define update_bar	=
+	BAR				=	-->[$(_GREEN)$(shell printf "%0.s=" $$(seq 0 $(shell echo "$(INDEX) * 33 / $(BUILD_SIZE)" | bc)))$(shell printf "%0.s " $$(seq $(shell echo "$(INDEX) * 33 / $(BUILD_SIZE)" | bc) 33))$(_STOP)]<--[ $(_GREEN)$(shell echo "$(shell echo "$(INDEX) * 33 / $(BUILD_SIZE)" | bc) * 3" | bc)%$(_STOP) ]
+endef
 
-.c.o:
-			${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+#--------------------------------------------------------->>
 
-################################################################################
-#								  Makefile  objs							  #
-################################################################################
+all					:	$(NAME)
 
-CLR_RMV		:= \033[0m
-RED			:= \033[1;31m
-GREEN		:= \033[1;32m
-YELLOW		:= \033[1;33m
-BLUE		:= \033[1;34m
-CYAN		:= \033[1;36m
-RM			:= rm -f
+ifeq ($(HEADERS_COUNT), 1)
+ifeq ($(SRCS_COUNT), 12)
+$(NAME)				:	$(OBJSDIR) $(OBJS_SUBDIR) $(OBJS)
+						@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+						@echo -ne $(CLEAR)
+						@echo -e '	$(NAME) $(_GREEN)created$(_STOP).'
+						@echo -e '	$(FULL)'
+else
+$(NAME)				:
+						@echo "Srcs corrupted, aborting"
+endif
+else
+$(NAME)				:
+						@echo "Srcs corrupted, aborting"
+endif
 
-all:		server client
+$(OBJSDIR)			:
+						@mkdir $(OBJSDIR)
 
-server:		${S_OBJS} ${S_HEADERS} Makefile
-			@ echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(S_NAME) ${CLR_RMV}..."
-			${CC} ${FLAGS} -o ${S_NAME} ${S_OBJS}
-			@ if [ ! -d "objs" ]; then mkdir objs; fi
-			@ mv *.o objs/
-			@ echo "$(GREEN)$(S_NAME) created ✔️${CLR_RMV}"
+$(OBJS_SUBDIR)		:
+						@mkdir $(OBJS_SUBDIR)
 
-client:		${C_OBJS} ${C_HEADERS} Makefile
-			@ echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}${C_NAME} ${CLR_RMV}..."
-			${CC} ${FLAGS} -o ${C_NAME} ${C_OBJS}
-			@ if [ ! -d "objs" ]; then mkdir objs; fi
-			@ mv *.o objs/
-			@ echo "$(GREEN)${C_NAME} created ✔️${CLR_RMV}"
+$(OBJSDIR)/%.o		:	$(SRCSDIR)/%.cpp $(HEADERS)
+						@$(CC) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+						@mv $(SRCSDIR)/*/*.o $@
+						@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
+						@$(eval $(call update_bar))
+						@echo -ne $(CLEAR)
+						@echo -e '	$@ $(_GREEN)created$(_STOP).'
+						@echo -ne '	$(BAR)\r'
 
-clean:
-			@ ${RM} *.o */*.o */*/*.o
-			@ rmdir objs
-			@ echo "$(RED)Deleting $(CYAN)$(S_NAME) $(CLR_RMV)objs ✔️"
-			@ echo "$(RED)Deleting $(CYAN)$(C_NAME) $(CLR_RMV)objs ✔️"
+clean				:
+						@$(RM) $(OBJSDIR)
+						@echo -ne $(CLEAR)
+						@echo -e '	objs directory $(_GREEN)removed$(_STOP).'
 
-fclean:		clean
-			@ ${RM} ${S_NAME}
-			@ echo "$(RED)Deleting $(CYAN)$(S_NAME) $(CLR_RMV)binary ✔️"
-			@ ${RM} ${C_NAME}
-			@ echo "$(RED)Deleting $(CYAN)$(C_NAME) $(CLR_RMV)binary ✔️"
+fclean				:	clean
+						@$(RM) $(NAME)
+						@echo -ne $(CLEAR)
+						@echo -e '	$(NAME) $(_GREEN)removed$(_STOP).'
 
-re:			fclean all
+re					:	fclean all
 
-.PHONY:		all clean fclean re server client
+.PHONY				:	all clean fclean re

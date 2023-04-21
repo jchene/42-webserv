@@ -1,0 +1,54 @@
+@import "general.css";
+
+/*------ID------------------------*/
+#main {
+	transform: translate(-50%, -55%);
+}
+
+#form-type {
+	display: flex;
+	justify-content: center;
+}
+
+#form-type input {
+	width: 20px;
+	margin-top: 0px;
+}
+
+#title-form {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#form-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 600px;
+	height: 200px;
+
+	margin: auto;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+#form-content textarea {
+	width: 400px;
+	height: 100px;
+	resize: none;
+}
+
+#form-content-file {
+	font-size: 20px;
+
+	width: auto;
+	max-width: 400px;
+    padding-left: 16%;
+}
+
+/*------CLASS----------------------*/
+.form-type-div {
+	margin-left: 10px;
+	margin-right: 10px;
+}

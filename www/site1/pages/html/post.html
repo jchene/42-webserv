@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/post.css">
+	<title>Site 1 - POST</title>
+</head>
+
+<body>
+	<div id="main">
+		<div id="main-title">
+			<h1>[ POST ]</h1>
+			<p>La méthode HTTP POST est l'une des méthodes les plus couramment utilisées dans les applications Web pour
+				soumettre des données à un serveur.</p>
+			<p>Elle est utilisée pour envoyer des données d'un client à un serveur. Les données sont encapsulées dans
+				une
+				requête HTTP POST et envoyées dans le corps de la requête.</p>
+			<p>Cette méthode est souvent utilisée pour envoyer des données sensibles car les données sont envoyées de
+				manière sécurisée.</p>
+			<p>Ci-dessous, tu peux upload un fichier qui sera sauvegardé sur le serveur via une requête POST.</p>
+			<form id="title-form">
+				<div id="form-type">
+					<div class="form-type-div">
+						<label for="form-type-text">Texte</label>
+						<input type="radio" id="form-type-text" checked>
+					</div>
+					<div class="form-type-div">
+						<label for="form-type-file">Fichier</label>
+						<input type="radio" id="form-type-file">
+					</div>
+				</div>
+				<div id="form-content"></div>
+				<button type="submit">Envoyer</button>
+			</form>
+		</div>
+	</div>
+	<div id="links">
+		<a href="get.html">GET</a>
+		<a href="../../index.html">HOME</a>
+		<a href="delete.html">DELETE</a>
+	</div>
+	<script type="text/javascript" src="../js/post.js"></script>
+</body>
+
+</html>

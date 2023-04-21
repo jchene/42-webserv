@@ -1,0 +1,113 @@
+/*---------------------------------
+#1 Background
+#2 Elements
+#3 Form
+#4 Position
+#5 Padding / Margin
+---------------------------------*/
+
+/*------TAGS---------------------*/
+body {
+	background-image: url(https://www.pcclean.io/wp-content/uploads/2020/4/VbqUBr.jpg);
+	background-position: center;
+
+	color: white;
+	font-family: serif;
+	font-size: 23px;
+	text-align: center;
+
+	margin: 0;
+}
+
+form label {
+	font-family: inherit;
+	font-size: inherit;
+
+	display: block;
+
+	margin: auto;
+}
+
+form input {
+	font-family: inherit;
+	font-size: 15px;
+	text-align: center;
+
+	display: block;
+	width: 200px;
+	height: 25px;
+
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+form button {
+	font-family: inherit;
+	font-size: 17px;
+
+	display: block;
+	width: 80px;
+	height: 40px;
+
+	margin: auto;
+}
+
+/*------ID------------------------*/
+#main {
+	min-width: 1000px;
+	max-width: 1000px;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#main-title {
+	background-color: rgba(0, 0, 0, 0.5);
+
+	padding: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+#main-options {
+	display: flex;
+}
+
+#options-firstSub {
+	margin-right: 5px;
+}
+
+#options-sub {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#options-lastSub {
+	margin-left: 5px;
+}
+
+#main-options form {
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/*------NAME----------------------*/
+[name="options-subz"] {
+	background-color: rgba(0, 0, 0, 0.5);
+
+	position: relative;
+
+	padding-bottom: 220px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+[name="form-argz"] {
+	width: 400px;
+}

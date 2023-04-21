@@ -1,0 +1,11 @@
+@import "general.css";
+
+/*------ID------------------------*/
+#main {
+	transform: translate(-50%, -65%);
+}
+
+#title-form {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

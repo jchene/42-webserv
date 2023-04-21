@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="index.css">
+	<title>Site 2 - Index</title>
+</head>
+
+<body>
+	<div id="main">
+		<div id="main-title">
+			<h1>PHP-CGI</h1>
+			<p>Un CGI est une interface de programmation qui permet aux développeurs de créer des applications web
+				dynamiques et interactives en utilisant des langages de script comme Perl, Python ou PHP.</p>
+			<p>Lorsqu'un utilisateur effectue une requête sur le serveur web, le CGI exécute le script correspondant et
+				renvoie le résultat au serveur web, qui l'affiche dans le navigateur du client</p>
+		</div>
+		<div id="main-options">
+			<div id="options-firstSub" name="options-subz">
+				<p>On peut exécuter un CGI via une requête GET.</p>
+				<p>L'URI ressemblerait à ceci: /cgi-bin/printenv.pl?var1=value1&var2=value2</p>
+				<p>Inscrit ci-dessous le chemin relatif vers un script PHP qui sera exécuté par PHP-CGI via une requête
+					GET.</p>
+				<form id="sub-form-get">
+					<label for="form-get-name">Nom du script :</label>
+					<input type="text" id="form-get-name" name="form-name">
+					<label for="form-get-argz">Arguments du script :</label>
+					<input type="text" id="form-get-argz" name="form-argz">
+					<button type="submit">Lancer</button>
+				</form>
+			</div>
+			<div id="options-lastSub" name="options-subz">
+				<p>On peut exécuter un CGI via une requête POST.</p>
+				<p>L'URI ressemblerait à ceci: /cgi-bin/exemple.php</p>
+				<p>Puis le body de la requête contiendrait cela: var1=value1&var2=value2</p>
+				<p>Inscrit ci-dessous le chemin relatif vers un script PHP qui sera exécuté par PHP-CGI via une requête
+					POST.</p>
+				<form id="sub-form-post">
+					<label for="form-post-name">Nom du script :</label>
+					<input type="text" id="form-post-name" name="form-name">
+					<label for="form-post-argz">Arguments du script :</label>
+					<input type="text" id="form-post-argz" name="form-argz">
+					<button type="submit">Lancer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
